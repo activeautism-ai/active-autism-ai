@@ -33,3 +33,31 @@ export async function POST(req: Request) {
 
   return NextResponse.json({ query, context, suggestions, ehcpMap });
 }
+import { NextResponse } from "next/server";
+
+export async function POST(req: Request) {
+  const { question, context } = await req.json();
+
+  const prompt = `
+  You are an Autism Specialist AI Consultant.
+  Your role:
+  - Provide behavioural, communication, sensory and learning strategies.
+  - You must NOT diagnose.
+  - Provide both parent-friendly AND professional-style explanation.
+  - Use ABA, SLT, OT, Physio and EYFS frameworks.
+
+  Context: ${context}
+  Question: ${question}
+
+  Provide:
+  1. A clear explanation
+  2. Strategies
+  3. Environmental adjustments
+  4. Next steps
+  5. A report-style version
+  `;
+
+  return NextResponse.json({
+    reply: "✅ AI Consultant Module Installed. Response generation coming next."
+  });
+}
