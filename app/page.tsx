@@ -182,3 +182,9 @@ async function startCheckout(priceId: string) {
   if (data.url) window.location.href = data.url;
   else alert(data.error || "Could not start checkout");
 }
+<button
+  className="px-3 py-2 rounded-xl bg-emerald-600 text-white text-sm"
+  onClick={() => startCheckout(process.env.NEXT_PUBLIC_PRICE_BEHAVIOUR101!)}
+>
+  Buy now
+</button>
