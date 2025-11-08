@@ -1,5 +1,4 @@
-\
-"use client";
+'use client';
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -10,12 +9,10 @@ import {
 const Card: React.FC<{children: React.ReactNode}> = ({ children }) => (
   <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">{children}</div>
 );
-
 const Pill: React.FC<{children: React.ReactNode}> = ({ children }) => (
   <span className="px-3 py-1 rounded-full text-xs bg-gray-100">{children}</span>
 );
 
-// Mock child record
 const child = {
   id: "CH-1024",
   name: "Nikolai Attar",
@@ -41,8 +38,8 @@ const navItems = [
   { key: "eyfs", label: "EYFS Curriculum", icon: BookOpen },
   { key: "teaching", label: "Teaching Instructions", icon: BookOpen },
   { key: "targets", label: "Target Sheets", icon: ClipboardList },
-  { key: "elearn", label: "E‑Learning Player", icon: Play },
-  { key: "autoslides", label: "Auto‑Slide Generator", icon: FileText },
+  { key: "elearn", label: "E-Learning Player", icon: Play },
+  { key: "autoslides", label: "Auto-Slide Generator", icon: FileText },
   { key: "gamify", label: "Gamified Learning", icon: BarChart2 },
   { key: "ceodash", label: "Revenue & Analytics", icon: BarChart2 },
   { key: "storefront", label: "Course Storefront", icon: BookOpen },
@@ -67,7 +64,7 @@ function Topbar() {
 
 function Sidebar({ current, setCurrent }: {current: string; setCurrent: (k:string)=>void}) {
   return (
-    <div className="w-64 hidden md:flex flex-col border-r border-gray-100 p-4 gap-2">
+    <div className="w-72 hidden md:flex flex-col border-r border-gray-100 p-4 gap-2">
       {navItems.map(({ key, label, icon: Icon }) => (
         <button key={key} onClick={() => setCurrent(key)} className={`flex items-center gap-3 px-3 py-2 rounded-xl text-left hover:bg-gray-50 ${current===key?"bg-gray-50 border border-gray-100":""}`}>
           <Icon className="w-4 h-4"/>
@@ -124,7 +121,7 @@ function Overview() {
             </button>
           ))}
         </div>
-        <div className="mt-4 text-xs text-gray-500">Quick actions to log antecedent–behavior–consequence, meals, and trial results.</div>
+        <div className="mt-4 text-xs text-gray-500">Quick actions to log antecedent–behaviour–consequence, meals, and trial results.</div>
       </Card>
 
       <Card>
@@ -136,7 +133,6 @@ function Overview() {
   );
 }
 
-// Stubs for core features
 function Consultant() { return <Card><div className="font-medium mb-2">AI Consultant</div><div className="text-sm text-gray-600">Cross-links FBA, SLT, OT, Physio, Nutrition, and Biomarkers. Provides rationale & confidence. Not diagnostic.</div></Card>; }
 function SLT() { return <Card><div className="font-medium mb-2">SLT Assessment Tools</div><div className="text-sm text-gray-600">Expressive/receptive baseline, language sampling, articulation screening, social communication audit.</div></Card>; }
 function OTAssess() { return <Card><div className="font-medium mb-2">OT Assessment Tools</div><div className="text-sm text-gray-600">Fine motor, sensory profile (non-proprietary), handwriting, ADLs, motor planning.</div></Card>; }
@@ -144,7 +140,6 @@ function Physio() { return <Card><div className="font-medium mb-2">Physiotherapy
 function Neurofeedback() { return <Card><div className="font-medium mb-2">Neurofeedback</div><div className="text-sm text-gray-600">Session logs, pre/post regulation ratings, protocol tracking (non-diagnostic).</div></Card>; }
 function Biomarkers() { return <Card><div className="font-medium mb-2">Biomarkers</div><div className="text-sm text-gray-600">Optional caregiver-entered data: micronutrients, sleep metrics; not diagnostic.</div></Card>; }
 
-// E-learning features
 function ELearningPlayer() {
   const lessons = [
     { id: "L1", title: "Welcome & Goals", video: "https://example.com/video1.mp4", transcript: "Welcome to Behaviour Principles 101…", workbook: "workbook-L1.pdf" },
@@ -158,28 +153,16 @@ function ELearningPlayer() {
   const current = lessons[index];
 
   React.useEffect(() => {
-    try {
-      const cached = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-      if (cached.index !== undefined) setIndex(cached.index);
-      if (cached.completed) setCompleted(cached.completed);
-      if (cached.comments) setComments(cached.comments);
-    } catch {}
+    try { const cached = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); if (cached.index !== undefined) setIndex(cached.index); if (cached.completed) setCompleted(cached.completed); if (cached.comments) setComments(cached.comments); } catch {}
   }, []);
-
-  React.useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ index, completed, comments }));
-  }, [index, completed, comments]);
+  React.useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify({ index, completed, comments })); }, [index, completed, comments]);
 
   const markComplete = () => setCompleted(prev => ({ ...prev, [current.id]: true }));
-  const addComment = (text: string) => {
-    if (!text?.trim()) return;
-    const entry = { name: "Learner", text: text.trim(), ts: new Date().toISOString() };
-    setComments(prev => ({ ...prev, [current.id]: [ ...(prev[current.id]||[]), entry ] }));
-  };
+  const addComment = (text: string) => { if (!text?.trim()) return; const entry = { name: "Learner", text: text.trim(), ts: new Date().toISOString() }; setComments(prev => ({ ...prev, [current.id]: [ ...(prev[current.id]||[]), entry ] })); };
 
   return (
     <Card>
-      <div className="font-medium mb-2">E‑Learning Player — Behaviour Principles 101</div>
+      <div className="font-medium mb-2">E-Learning Player — Behaviour Principles 101</div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <div className="lg:col-span-1 p-3 border rounded-2xl bg-white max-h-[60vh] overflow-auto">
           <div className="text-sm font-medium mb-2">Lessons</div>
@@ -200,7 +183,7 @@ function ELearningPlayer() {
 
         <div className="lg:col-span-3 space-y-3">
           <div className="aspect-video w-full bg-black/5 rounded-2xl border flex items-center justify-center">
-            <div className="text-sm text-gray-500">Embedded video placeholder<br/>({current.video})</div>
+            <div className="text-sm text-gray-500">Embedded video placeholder<br/>(video url)</div>
           </div>
           <div className="p-3 border rounded-2xl">
             <div className="text-sm font-medium">Transcript</div>
@@ -244,8 +227,8 @@ function CommentBox({ onSubmit }: { onSubmit: (t:string)=>void }) {
 function AutoSlides() {
   return (
     <Card>
-      <div className="font-medium mb-2">Auto‑Slide Generator</div>
-      <div className="text-sm text-gray-600">Paste lesson text to auto‑create branded slides with icons, diagrams, and summaries. (Export stub)</div>
+      <div className="font-medium mb-2">Auto-Slide Generator</div>
+      <div className="text-sm text-gray-600">Paste lesson text to auto-create branded slides with icons, diagrams, and summaries. (Export stub)</div>
       <textarea placeholder="Paste lesson text…" className="w-full border rounded-xl px-3 py-2 mt-2 min-h-[120px]"></textarea>
       <button className="mt-3 px-3 py-2 rounded-xl bg-indigo-600 text-white text-sm">Generate Slides</button>
     </Card>
@@ -253,22 +236,13 @@ function AutoSlides() {
 }
 
 function Gamify() {
-  const stats = [
-    { label: "XP", value: 1280 },
-    { label: "Level", value: 7 },
-    { label: "Streak", value: "12 days" },
-  ];
+  const stats = [{label:"XP",value:1280},{label:"Level",value:7},{label:"Streak",value:"12 days"}];
   return (
     <Card>
       <div className="font-medium mb-2">Gamified Learning</div>
       <div className="text-sm text-gray-600">XP points, levels, streaks, badges, leaderboards.</div>
       <div className="mt-3 grid grid-cols-3 gap-3">
-        {stats.map((s,i)=> (
-          <div key={i} className="p-3 border rounded-2xl text-center">
-            <div className="text-xs text-gray-500">{s.label}</div>
-            <div className="text-xl font-semibold">{s.value}</div>
-          </div>
-        ))}
+        {stats.map((s,i)=> (<div key={i} className="p-3 border rounded-2xl text-center"><div className="text-xs text-gray-500">{s.label}</div><div className="text-xl font-semibold">{s.value}</div></div>))}
       </div>
     </Card>
   );
@@ -285,19 +259,15 @@ function CEODash() {
     <Card>
       <div className="font-medium mb-2">Revenue & Analytics</div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {cards.map((c,i)=> (
-          <div key={i} className="p-3 border rounded-2xl">
-            <div className="text-xs text-gray-500">{c.name}</div>
-            <div className="text-lg font-semibold">{c.value}</div>
-          </div>
-        ))}
+        {cards.map((c,i)=> (<div key={i} className="p-3 border rounded-2xl"><div className="text-xs text-gray-500">{c.name}</div><div className="text-lg font-semibold">{c.value}</div></div>))}
       </div>
+      <div className="text-xs text-gray-500 mt-3">Funnel view, LTV, progress cohorts, best-selling tracks — wire to Stripe analytics.</div>
     </Card>
   );
 }
 
 function Storefront() {
-  const cats = ["Behaviour", "Autism", "EYFS", "PBS", "Physio", "SLT", "OT"];
+  const cats = ["Behaviour","Autism","EYFS","PBS","Physio","SLT","OT"];
   const courses = [
     { title: "Behaviour Principles 101", rating: 4.8, reviews: 214, price: 39 },
     { title: "Autism Essentials", rating: 4.7, reviews: 178, price: 29 },
@@ -328,9 +298,17 @@ export default function Page() {
   const [current, setCurrent] = React.useState("overview");
   return (
     <div className="min-h-screen bg-gray-50">
-      <Topbar/>
+      <div className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-100 px-6 py-3 flex items-center gap-3">
+        <div className="text-xl font-semibold">Active Autism AI</div>
+      </div>
       <div className="flex">
-        <Sidebar current={current} setCurrent={setCurrent}/>
+        <div className="w-72 hidden md:flex flex-col border-r border-gray-100 p-4 gap-2">
+          {navItems.map(({ key, label }) => (
+            <button key={key} onClick={() => setCurrent(key)} className={`flex items-center gap-3 px-3 py-2 rounded-xl text-left hover:bg-gray-50 ${current===key?"bg-gray-50 border border-gray-100":""}`}>
+              <span>{label}</span>
+            </button>
+          ))}
+        </div>
         <main className="flex-1 p-6 space-y-4">
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
             {current === "overview" && <Overview/>}
@@ -340,16 +318,15 @@ export default function Page() {
             {current === "physio" && <Physio/>}
             {current === "neurofeedback" && <Neurofeedback/>}
             {current === "biomarkers" && <Biomarkers/>}
-            {current === "eyfs" && <Card><div className="font-medium mb-2">EYFS Curriculum</div><div className="text-sm text-gray-600">Early targets for joint attention, play skills, regulation, and readiness.</div></Card>}
+            {current === "eyfs" && <Card><div className="font-medium mb-2">EYFS Curriculum</div><div className="text-sm text-gray-600">Targets for joint attention, play skills, regulation, readiness.</div></Card>}
             {current === "teaching" && <Card><div className="font-medium mb-2">Teaching Instructions</div><div className="text-sm text-gray-600">Multimodal prompts: visual, verbal, gestural, modeling, physical, AAC.</div></Card>}
-            {current === "targets" && <Card><div className="font-medium mb-2">Target Sheets</div><div className="text-sm text-gray-600">SMART goals with baseline, mastery criteria, generalisation plan.</div></Card>}
+            {current === "targets" && <Card><div className="font-medium mb-2">Target Sheets</div><div className="text-sm text-gray-600">SMART goals with baseline, mastery, generalisation.</div></Card>}
             {current === "elearn" && <ELearningPlayer/>}
             {current === "autoslides" && <AutoSlides/>}
             {current === "gamify" && <Gamify/>}
             {current === "ceodash" && <CEODash/>}
             {current === "storefront" && <Storefront/>}
-            {current === "reports" && <Card><div className="font-medium mb-2">Reports</div><div className="text-sm text-gray-600">EHCP-ready summaries and appendices (stub).</div></Card>}
-            {current === "settings" && <Card><div className="font-medium mb-2">Settings</div><div className="text-sm text-gray-600">Org profile, roles, data retention, localisation.</div></Card>}
+            {current === "reports" && <Card><div className="font-medium mb-2">Reports</div><div className="text-sm text-gray-600">EHCP-ready summaries (stub).</div></Card>}
           </motion.div>
         </main>
       </div>
